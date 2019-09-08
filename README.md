@@ -14,7 +14,7 @@ end
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Alternatively install the gem yourself as:
 
@@ -23,8 +23,8 @@ Alternatively install the gem yourself as:
 and put this in your ``_config.yml`` 
 
 ```yaml
-plugins: [jekyll-pdf-embed]
- # This will require each of these gems automatically.
+plugins:
+  - jekyll-pdf-embed
 ```
 
 ## Usage
