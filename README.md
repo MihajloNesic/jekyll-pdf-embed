@@ -31,12 +31,12 @@ plugins: [jekyll-pdf-embed]
 
 You can use external PDF files
 ```
- {% pdf https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf %}
+ {% pdf "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" %}
 ```
 
 or local
 ```
- {% pdf /files/pdf/sample.pdf %}
+ {% pdf "/files/pdf/sample.pdf" %}
 ```
 
 ## Result

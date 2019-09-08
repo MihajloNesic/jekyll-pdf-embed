@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'jekyll-pdf-embed'
-  s.version     = '1.0.0'
+  s.version     = '1.0.1'
   s.authors     = ["Mihajlo Nesic"]
   s.email       = 'nesicmihajlo98@gmail.com'
   
