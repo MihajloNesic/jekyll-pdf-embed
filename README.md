@@ -31,7 +31,7 @@ plugins: [jekyll-pdf-embed]
 
 You can use external PDF files
 ```
- {% pdf http://www.africau.edu/images/default/sample.pdf %}
+ {% pdf https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf %}
 ```
 
 or local
