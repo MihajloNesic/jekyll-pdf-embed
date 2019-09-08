@@ -14,7 +14,7 @@ end
 
 And then execute:
 
-    $ bundle install
+    $ bundle
 
 Alternatively install the gem yourself as:
 
