@@ -43,4 +43,6 @@ or local
 
 The embedded pdf output
 
+[DEMO](https://mihajlonesic.gitlab.io/projects/jekyll-pdf-embed/#result)
+
 ![](https://i.imgur.com/TpTQehM.png)
