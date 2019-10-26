@@ -42,9 +42,7 @@ or local
 
 Use `no_link` to hide link to pdf file ('View PDF' header)
 ```
-{% raw %}
  {% pdf "/files/pdf/sample.pdf" no_link %}
-{% endraw %}
 ```
 
 ## Result
