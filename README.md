@@ -40,6 +40,13 @@ or local
  {% pdf "/files/pdf/sample.pdf" %}
 ```
 
+Use `no_link` to hide link to pdf file ('View PDF' header)
+```
+{% raw %}
+ {% pdf "/files/pdf/sample.pdf" no_link %}
+{% endraw %}
+```
+
 ## Result
 
 The embedded pdf output
