@@ -50,9 +50,7 @@ Use `no_link` to hide link to pdf file ('View PDF' header)
 
 You can also embed PowerPoint presentations!
 ```
-{% raw %}
  {% pdf "http://img.labnol.org/di/PowerPoint.ppt" %}
-{% endraw %}
 ```
 
 Your file **must** end with `.pdf` or `.ppt`. Everyting else is forbidden.
