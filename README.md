@@ -43,6 +43,16 @@ or local
  {% pdf "/files/pdf/sample.pdf" %}
 ```
 
+Use front matter
+```
+---
+pdf_file: "/files/pdf/sample.pdf"
+---
+
+{% pdf {{ page.pdf_file }} %}
+```
+
+
 Use `no_link` to hide link to pdf file ('View PDF' header)
 ```
  {% pdf "/files/pdf/sample.pdf" no_link %}
@@ -53,7 +63,7 @@ You can also embed PowerPoint presentations!
  {% pdf "http://img.labnol.org/di/PowerPoint.ppt" %}
 ```
 
-Your file **must** end with `.pdf` or `.ppt`. Everyting else is forbidden.
+Your file **must** end with `.pdf`, `.ppt` or `.pptx`. Everyting else is forbidden.
 
 ## Result
 
