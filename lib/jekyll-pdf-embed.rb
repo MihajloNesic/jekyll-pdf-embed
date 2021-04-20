@@ -1,6 +1,9 @@
 require "jekyll"
+require "securerandom"
 
 class PDFEmbedTest < Liquid::Tag
+
+    NO_LINK_ARG = "no_link".freeze
 
     def initialize(tagName, content, tokens)
         super
@@ -9,24 +12,40 @@ class PDFEmbedTest < Liquid::Tag
         # define allowed extensions
         @allowed_files = [".pdf", ".ppt", ".pptx"]
 
-        # get the 'no_link' param and check if it is present
-        @param = @content.split(/ /).last
-        @no_link = @param == 'no_link' ? true : false
+        # current container uuid
+        @uuid = SecureRandom.uuid
     end
     
     def render(context)
-        if @no_link
-            # if 'no_link' is present then
-            # remove only the last occurence of 'no_link' keyword
-            # https://www.regular-expressions.info/keep.html
-            @content = @content.sub(/.*\K no_link/, '')
-        end
+        @parsed_content = Liquid::Template.parse(@content).render(context)
+        @args = @parsed_content.split(/ /)
 
-        @link = "#{context[@content.strip]}"
+        @link_raw = @args.first
+        @link = @link_raw.tr('\"', '')
 
-        # get extension and check if it is allowed 
+        @no_link = @args.include? NO_LINK_ARG
         @extension = File.extname(@link)
         @is_allowed = @allowed_files.include? @extension
+
+        @other_args_raw = @parsed_content.clone
+        @other_args_raw.slice! @link_raw
+        @other_args_raw.slice! NO_LINK_ARG
+        @other_args_raw.strip!
+
+        @other_args_array = @other_args_raw.split(/ /)
+
+        @other_args = hash_from_args(@other_args_array)
+        @w = @other_args["width"]
+        @h = @other_args["height"]
+
+        # default width and height values
+        if @w == nil
+            @w = "100%"
+        end
+
+        if @h == nil
+            @h = "500px"
+        end
 
         if !@is_allowed
             raise ArgumentError, 'ERROR:file_not_allowed -> ' + @link
@@ -34,9 +53,9 @@ class PDFEmbedTest < Liquid::Tag
 
         if @extension == ".pdf"
             if @no_link
-                %Q{<style>.pdf-embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin-bottom: 20px; } .pdf-embed-container iframe, .pdf-embed-container object, .pdf-embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='pdf-embed-container'><iframe title="PDF file" width="640" height="390" src="#{@link}" frameborder="0" allowfullscreen></iframe></div>}
+                %Q{<style>.pdf-embed-wrap-#{@uuid} { display:flex; flex-direction: column; width: #{@w}; height: #{@h}; } .pdf-embed-container-#{@uuid} { height: 100%; } .pdf-embed-container-#{@uuid} iframe { width: 100%; height: 100%; }</style><div class="pdf-embed-wrap-#{@uuid}"><div class='pdf-embed-container-#{@uuid}'><iframe title="PDF file" src="#{@link}" frameborder="0" allowfullscreen></iframe></div></div>}
             else
-                %Q{<style>.pdf-embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin-bottom: 20px; border-style: solid; } .pdf-link { background-color: white; text-align: center; border-style: solid; } .pdf-embed-container iframe, .pdf-embed-container object, .pdf-embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='pdf-link'><a href="#{@link}" target="_blank">View PDF</a></div><div class='pdf-embed-container'><iframe title="PDF file" width="640" height="390" src="#{@link}" frameborder="0" allowfullscreen></iframe></div>}
+                %Q{<style>.pdf-embed-wrap-#{@uuid} { display:flex; flex-direction: column; width: #{@w}; height: #{@h}; } .pdf-embed-container-#{@uuid} { height: 100%; } .pdf-link-#{@uuid} { background-color: white; text-align: center; border-style: solid; } .pdf-embed-container-#{@uuid} iframe { width: 100%; height: 100%; }</style><div class="pdf-embed-wrap-#{@uuid}"><div class='pdf-link-#{@uuid}'><a href="#{@link}" target="_blank">View PDF</a></div><div class='pdf-embed-container-#{@uuid}'><iframe title="PDF file" src="#{@link}" frameborder="0" allowfullscreen></iframe></div></div>}
             end
         elsif @extension == ".ppt" or @extension == ".pptx"
 
@@ -52,13 +71,28 @@ class PDFEmbedTest < Liquid::Tag
             end
 
             if @no_link
-                %Q{<style>.pdf-embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin-bottom: 20px; } .pdf-embed-container iframe, .pdf-embed-container object, .pdf-embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='pdf-embed-container'><iframe title="PDF file" width="640" height="390" src="#{@link}" frameborder="0" allowfullscreen></iframe></div>}
+                %Q{<style>.pdf-embed-wrap-#{@uuid} { display:flex; flex-direction: column; width: #{@w}; height: #{@h}; } .pdf-embed-container-#{@uuid} { height: 100%; } .pdf-embed-container-#{@uuid} iframe { width: 100%; height: 100%; }</style><div class="pdf-embed-wrap-#{@uuid}"><div class='pdf-embed-container-#{@uuid}'><iframe title="Presentation file" src="#{@link}" frameborder="0" allowfullscreen></iframe></div></div>}
             else
-                %Q{<style>.pdf-embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin-bottom: 20px; border-style: solid; } .pdf-link { background-color: white; text-align: center; border-style: solid; } .pdf-embed-container iframe, .pdf-embed-container object, .pdf-embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='pdf-link'><a href="#{@link}" target="_blank">View presentation</a></div><div class='pdf-embed-container'><iframe title="Presentation file" width="640" height="390" src="#{@link}" frameborder="0" allowfullscreen></iframe></div>}
+                %Q{<style>.pdf-embed-wrap-#{@uuid} { display:flex; flex-direction: column; width: #{@w}; height: #{@h}; } .pdf-embed-container-#{@uuid} { height: 100%; } .pdf-link-#{@uuid} { background-color: white; text-align: center; border-style: solid; } .pdf-embed-container-#{@uuid} iframe { width: 100%; height: 100%; }</style><div class="pdf-embed-wrap-#{@uuid}"><div class='pdf-link-#{@uuid}'><a href="#{@link}" target="_blank">View presentation</a></div><div class='pdf-embed-container-#{@uuid}'><iframe title="Presentation file" src="#{@link}" frameborder="0" allowfullscreen></iframe></div></div>}
             end
         end
 
     end
+
+    # Transform 'a=b c=d' into hash
+    def hash_from_args(args_array)
+        keys_values = args_array.map {|item| item.split /\s*=\s*/ }
+        return Hash[keys_values]
+    end
+
+    def remove_quotations(str)
+        if str.start_with?('"')
+            str = str.slice(1..-1)
+        end
+        if str.end_with?('"')
+            str = str.slice(0..-2)
+        end
+    end 
     
     Liquid::Template.register_tag('pdf', self)
 end

@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name        = 'jekyll-pdf-embed'
-  s.version     = '1.1.0'
+  s.version     = '1.1.1'
   s.authors     = ["Mihajlo Nesic"]
   s.email       = 'nesicmihajlo98@gmail.com'
   
-  s.date        = '2021-01-17'
+  s.date        = '2021-04-21'
   s.summary     = "Jekyll plugin for embedding PDF files to any page or post"
   s.description = %q{
 	Jekyll PDF Embed is a ruby gem for Jekyll static site generator.

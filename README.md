@@ -52,10 +52,15 @@ pdf_file: "/files/pdf/sample.pdf"
 {% pdf {{ page.pdf_file }} %}
 ```
 
-
 Use `no_link` to hide link to pdf file ('View PDF' header)
 ```
  {% pdf "/files/pdf/sample.pdf" no_link %}
+```
+
+Use `width` and/or `height` parameters to size the container. Default values are _width=100%_ and _height=500px_.<br/>
+Order does not matter, and can be used in combination with _no_link_ parameter.
+```
+ {% pdf "/files/pdf/sample.pdf" width=350px height=500px %}
 ```
 
 You can also embed PowerPoint presentations!
@@ -70,5 +75,6 @@ Your file **must** end with `.pdf`, `.ppt` or `.pptx`. Everyting else is forbidd
 The embedded pdf output
 
 [DEMO](https://mihajlonesic.gitlab.io/projects/jekyll-pdf-embed/#result)
+[ALL EXAMPLES](https://mihajlonesic.gitlab.io/jpe-examples/)
 
 ![](https://i.imgur.com/hdiVfm0.jpg)
