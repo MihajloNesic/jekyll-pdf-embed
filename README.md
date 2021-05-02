@@ -5,6 +5,9 @@ It allows user to easily embed external or local PDF files to any page or blog p
 
 ## Installation
 
+
+### RubyGems
+
 Add this line to your Gemfile:
 
 ```ruby
@@ -31,7 +34,27 @@ plugins:
   - jekyll-pdf-embed
 ```
 
+### GitHub RubyGems registry
+
+Install from the command line (you can put any version you want, check the latest):
+
+```shell
+$ gem install jekyll-pdf-embed --version "1.1.1" --source "https://rubygems.pkg.github.com/mihajlonesic"
+```
+
+Alternatively, install via Gemfile:
+
+```ruby
+source "https://rubygems.pkg.github.com/mihajlonesic" do
+  gem "jekyll-pdf-embed", "1.1.1"
+end
+```
+
 ## Usage
+
+Your file **must** end with `.pdf`, `.ppt` or `.pptx`. Everyting else is forbidden.
+
+### Basic
 
 You can use external PDF files
 ```
@@ -52,6 +75,8 @@ pdf_file: "/files/pdf/sample.pdf"
 {% pdf {{ page.pdf_file }} %}
 ```
 
+### Parameters
+
 Use `no_link` to hide link to pdf file ('View PDF' header)
 ```
  {% pdf "/files/pdf/sample.pdf" no_link %}
@@ -62,6 +87,8 @@ Order does not matter, and can be used in combination with _no_link_ parameter.
 ```
  {% pdf "/files/pdf/sample.pdf" width=350px height=500px %}
 ```
+
+### Presentation
 
 You can also embed PowerPoint presentations!
 ```
@@ -74,7 +101,7 @@ Your file **must** end with `.pdf`, `.ppt` or `.pptx`. Everyting else is forbidd
 
 The embedded pdf output
 
-[DEMO](https://mihajlonesic.gitlab.io/projects/jekyll-pdf-embed/#result)
-[ALL EXAMPLES](https://mihajlonesic.gitlab.io/jpe-examples/)
+[DEMO](https://mihajlonesic.gitlab.io/projects/jekyll-pdf-embed/#result) <br/>
+[MORE EXAMPLES](https://mihajlonesic.gitlab.io/jpe-examples/)
 
 ![](https://i.imgur.com/hdiVfm0.jpg)

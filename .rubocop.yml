@@ -1,0 +1,11 @@
+Layout/IndentationWidth:
+    Width: 4
+
+Layout/IndentationStyle:
+    EnforcedStyle: spaces
+    Width: 4
+
+Naming/FileName:
+    Exclude:
+        - 'lib/jekyll-pdf-embed.rb'
+        - 'lib/jekyll-pdf-embed/pdf-tag.rb'
