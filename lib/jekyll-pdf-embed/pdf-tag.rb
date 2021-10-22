@@ -76,14 +76,8 @@ class JekyllPDFEmbed < Liquid::Tag
 
     # Transform 'a=b c=d' into hash
     def hash_from_args(args_array)
-        keys_values = args_array.map { |item| item.split /\s*=\s*/ }
+        keys_values = args_array.map { |item| item.split(/\s*=\s*/) }
         Hash[keys_values]
-    end
-
-    # Remove first and last quotation from string
-    def remove_quotations(str)
-        str = str.slice(1..-1) if str.start_with?('"')
-        str = str.slice(0..-2) if str.end_with?('"')
     end
 
     Liquid::Template.register_tag('pdf', self)
