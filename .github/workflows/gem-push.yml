@@ -20,7 +20,9 @@ jobs:
                   ruby-version: 2.6.x
 
             - name: Run tests
-              run: bundle exec rake
+              run: |
+                  bundle install
+                  bundle exec rake
 
             - name: Publish to GPR
               run: |
