@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
     s.authors     = ['Mihajlo Nesic']
     s.email       = 'nesicmihajlo98@gmail.com'
 
-    s.date        = '2021-10-22'
+    s.date        = '2023-02-27'
     s.summary     = 'Jekyll plugin for embedding PDF files to any page or post'
     s.description = %(
 	Jekyll PDF Embed is a ruby gem for Jekyll static site generator.

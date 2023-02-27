@@ -3,6 +3,15 @@
 require 'jekyll-pdf-embed'
 require 'jekyll'
 
+RSpec.configure do |c|
+    def extract_uuid(rendered_html)
+        reg = rendered_html.match(/\.pdf-embed-wrap-[\da-z-]*/)
+        tag_uuid = reg[0]
+        tag_uuid.slice! '.pdf-embed-wrap-'
+        tag_uuid
+    end
+end
+
 RSpec.describe Jekyll::JekyllPDFEmbed do
     it 'has a version number' do
         puts "Jekyll PDF Embed version: #{Jekyll::JekyllPDFEmbed::VERSION}"
@@ -17,16 +26,14 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             rendered = template.render.gsub(/\n+/, '').gsub(/\s+/, ' ')
 
             # extract the UUID
-            reg = rendered.match(/\.pdf-embed-wrap-[\da-z-]*/)
-            tag_uuid = reg[0]
-            tag_uuid.slice! '.pdf-embed-wrap-'
+            tag_uuid = extract_uuid(rendered)
 
             let(:tag_rendered) { rendered }
             let(:expected) do
                 %(
                    <style>
                        .pdf-embed-wrap-#{tag_uuid} {
-                           display:flex;
+                           display: flex;
                            flex-direction: column;
                            width: 100%;
                            height: 650px;
@@ -52,7 +59,7 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
                            <iframe src="https://mihajlonesic.gitlab.io/files/loremipsum.pdf" frameborder="0" allowfullscreen></iframe>
                        </div>
                    </div>
-                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop
+                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
             end
 
             it 'renders pdf with remote url, with link, default size' do
@@ -69,16 +76,14 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             rendered = template.render.gsub(/\n+/, '').gsub(/\s+/, ' ')
 
             # extract the UUID
-            reg = rendered.match(/\.pdf-embed-wrap-[\da-z-]*/)
-            tag_uuid = reg[0]
-            tag_uuid.slice! '.pdf-embed-wrap-'
+            tag_uuid = extract_uuid(rendered)
 
             let(:tag_rendered) { rendered }
             let(:expected) do
                 %(
                    <style>
                        .pdf-embed-wrap-#{tag_uuid} {
-                           display:flex;
+                           display: flex;
                            flex-direction: column;
                            width: 150px;
                            height: 40%;
@@ -104,7 +109,7 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
                            <iframe src="https://mihajlonesic.gitlab.io/files/loremipsum.pdf" frameborder="0" allowfullscreen></iframe>
                        </div>
                    </div>
-                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop
+                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
             end
 
             it 'renders pdf with remote url, with link, custom size' do
@@ -121,16 +126,14 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             rendered = template.render.gsub(/\n+/, '').gsub(/\s+/, ' ')
 
             # extract the UUID
-            reg = rendered.match(/\.pdf-embed-wrap-[\da-z-]*/)
-            tag_uuid = reg[0]
-            tag_uuid.slice! '.pdf-embed-wrap-'
+            tag_uuid = extract_uuid(rendered)
 
             let(:tag_rendered) { rendered }
             let(:expected) do
                 %(
                    <style>
                        .pdf-embed-wrap-#{tag_uuid} {
-                           display:flex;
+                           display: flex;
                            flex-direction: column;
                            width: 100%;
                            height: 650px;
@@ -148,7 +151,7 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
                            <iframe src="https://mihajlonesic.gitlab.io/files/loremipsum.pdf" frameborder="0" allowfullscreen></iframe>
                        </div>
                    </div>
-                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop
+                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
             end
 
             it 'renders pdf with remote url, without link, default size' do
@@ -165,16 +168,14 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             rendered = template.render.gsub(/\n+/, '').gsub(/\s+/, ' ')
 
             # extract the UUID
-            reg = rendered.match(/\.pdf-embed-wrap-[\da-z-]*/)
-            tag_uuid = reg[0]
-            tag_uuid.slice! '.pdf-embed-wrap-'
+            tag_uuid = extract_uuid(rendered)
 
             let(:tag_rendered) { rendered }
             let(:expected) do
                 %(
                    <style>
                        .pdf-embed-wrap-#{tag_uuid} {
-                           display:flex;
+                           display: flex;
                            flex-direction: column;
                            width: 150px;
                            height: 40%;
@@ -192,7 +193,7 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
                            <iframe src="https://mihajlonesic.gitlab.io/files/loremipsum.pdf" frameborder="0" allowfullscreen></iframe>
                        </div>
                    </div>
-                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop
+                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
             end
 
             it 'renders pdf with remote url, with link, custom size' do
@@ -209,16 +210,14 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             rendered = template.render.gsub(/\n+/, '').gsub(/\s+/, ' ')
 
             # extract the UUID
-            reg = rendered.match(/\.pdf-embed-wrap-[\da-z-]*/)
-            tag_uuid = reg[0]
-            tag_uuid.slice! '.pdf-embed-wrap-'
+            tag_uuid = extract_uuid(rendered)
 
             let(:tag_rendered) { rendered }
             let(:expected) do
                 %(
                    <style>
                        .pdf-embed-wrap-#{tag_uuid} {
-                           display:flex;
+                           display: flex;
                            flex-direction: column;
                            width: 100%;
                            height: 700px;
@@ -244,7 +243,7 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
                            <iframe src="https://mihajlonesic.gitlab.io/files/loremipsum.pdf" frameborder="0" allowfullscreen></iframe>
                        </div>
                    </div>
-                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop
+                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
             end
 
             it 'renders pdf with remote url, with link, custom height' do
@@ -264,16 +263,14 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             rendered = template.render.gsub(/\n+/, '').gsub(/\s+/, ' ')
 
             # extract the UUID
-            reg = rendered.match(/\.pdf-embed-wrap-[\da-z-]*/)
-            tag_uuid = reg[0]
-            tag_uuid.slice! '.pdf-embed-wrap-'
+            tag_uuid = extract_uuid(rendered)
 
             let(:tag_rendered) { rendered }
             let(:expected) do
                 %(
                    <style>
                        .pdf-embed-wrap-#{tag_uuid} {
-                           display:flex;
+                           display: flex;
                            flex-direction: column;
                            width: 100%;
                            height: 650px;
@@ -299,7 +296,7 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
                            <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=http://img.labnol.org/di/PowerPoint.ppt" frameborder="0" allowfullscreen></iframe>
                        </div>
                    </div>
-                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop
+                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
             end
 
             it 'renders ppt with remote url, with link, default size' do
@@ -316,16 +313,14 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             rendered = template.render.gsub(/\n+/, '').gsub(/\s+/, ' ')
 
             # extract the UUID
-            reg = rendered.match(/\.pdf-embed-wrap-[\da-z-]*/)
-            tag_uuid = reg[0]
-            tag_uuid.slice! '.pdf-embed-wrap-'
+            tag_uuid = extract_uuid(rendered)
 
             let(:tag_rendered) { rendered }
             let(:expected) do
                 %(
                    <style>
                        .pdf-embed-wrap-#{tag_uuid} {
-                           display:flex;
+                           display: flex;
                            flex-direction: column;
                            width: 100%;
                            height: 650px;
@@ -351,7 +346,7 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
                            <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https://mihajlonesic.gitlab.io/files/sample.pptx" frameborder="0" allowfullscreen></iframe>
                        </div>
                    </div>
-                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop
+                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
             end
 
             it 'renders pptx with remote url, with link, default size' do
@@ -368,16 +363,14 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             rendered = template.render.gsub(/\n+/, '').gsub(/\s+/, ' ')
 
             # extract the UUID
-            reg = rendered.match(/\.pdf-embed-wrap-[\da-z-]*/)
-            tag_uuid = reg[0]
-            tag_uuid.slice! '.pdf-embed-wrap-'
+            tag_uuid = extract_uuid(rendered)
 
             let(:tag_rendered) { rendered }
             let(:expected) do
                 %(
                    <style>
                        .pdf-embed-wrap-#{tag_uuid} {
-                           display:flex;
+                           display: flex;
                            flex-direction: column;
                            width: 50%;
                            height: 1000px;
@@ -403,7 +396,7 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
                            <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https://mihajlonesic.gitlab.io/files/sample.pptx" frameborder="0" allowfullscreen></iframe>
                        </div>
                    </div>
-                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop
+                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
             end
 
             it 'renders pptx with remote url, with link, custom size' do
@@ -420,16 +413,14 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             rendered = template.render.gsub(/\n+/, '').gsub(/\s+/, ' ')
 
             # extract the UUID
-            reg = rendered.match(/\.pdf-embed-wrap-[\da-z-]*/)
-            tag_uuid = reg[0]
-            tag_uuid.slice! '.pdf-embed-wrap-'
+            tag_uuid = extract_uuid(rendered)
 
             let(:tag_rendered) { rendered }
             let(:expected) do
                 %(
                    <style>
                        .pdf-embed-wrap-#{tag_uuid} {
-                           display:flex;
+                           display: flex;
                            flex-direction: column;
                            width: 100%;
                            height: 650px;
@@ -447,7 +438,7 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
                            <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https://mihajlonesic.gitlab.io/files/sample.pptx" frameborder="0" allowfullscreen></iframe>
                        </div>
                    </div>
-                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop
+                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
             end
 
             it 'renders pptx with remote url, without link, default size' do
@@ -464,16 +455,14 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             rendered = template.render.gsub(/\n+/, '').gsub(/\s+/, ' ')
 
             # extract the UUID
-            reg = rendered.match(/\.pdf-embed-wrap-[\da-z-]*/)
-            tag_uuid = reg[0]
-            tag_uuid.slice! '.pdf-embed-wrap-'
+            tag_uuid = extract_uuid(rendered)
 
             let(:tag_rendered) { rendered }
             let(:expected) do
                 %(
                    <style>
                        .pdf-embed-wrap-#{tag_uuid} {
-                           display:flex;
+                           display: flex;
                            flex-direction: column;
                            width: 50%;
                            height: 1000px;
@@ -491,7 +480,7 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
                            <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https://mihajlonesic.gitlab.io/files/sample.pptx" frameborder="0" allowfullscreen></iframe>
                        </div>
                    </div>
-                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop
+                   ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
             end
 
             it 'renders pptx with remote url, without link, custom size' do
@@ -503,5 +492,4 @@ RSpec.describe Jekyll::JekyllPDFEmbed do
             end
         end
     end
-
 end

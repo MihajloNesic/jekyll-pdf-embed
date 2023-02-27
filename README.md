@@ -1,4 +1,5 @@
-# Jekyll PDF Embed [![Gem Version](https://badge.fury.io/rb/jekyll-pdf-embed.svg)](https://badge.fury.io/rb/jekyll-pdf-embed) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+# Jekyll PDF Embed 
+[![Gem Version](https://badge.fury.io/rb/jekyll-pdf-embed.svg)](https://badge.fury.io/rb/jekyll-pdf-embed) [![Ruby Gem](https://github.com/MihajloNesic/jekyll-pdf-embed/actions/workflows/gem-push.yml/badge.svg)](https://github.com/MihajloNesic/jekyll-pdf-embed/actions/workflows/gem-push.yml) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 **Jekyll PDF Embed** is a ruby gem for [Jekyll](https://jekyllrb.com/) static site generator.
 It allows user to easily embed external or local PDF files to any page or blog post.

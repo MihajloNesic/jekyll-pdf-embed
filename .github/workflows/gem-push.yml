@@ -2,7 +2,12 @@ name: Ruby Gem
 
 on:
     push:
-        branches: [ master ]
+        tags:
+            - '**'
+        paths-ignore:
+            - 'README.md'
+            - 'LICENSE'
+            - '.gitignore'
 
 jobs:
     build:

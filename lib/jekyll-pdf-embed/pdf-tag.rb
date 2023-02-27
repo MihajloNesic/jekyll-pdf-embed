@@ -68,9 +68,59 @@ class JekyllPDFEmbed < Liquid::Tag
         end
 
         if @no_link
-            %Q(<style> .pdf-embed-wrap-#{@uuid} { display:flex; flex-direction: column; width: #{@width}; height: #{@height}; } .pdf-embed-container-#{@uuid} { height: 100%; } .pdf-embed-container-#{@uuid} iframe { width: 100%; height: 100%; } </style> <div class="pdf-embed-wrap-#{@uuid}"> <div class="pdf-embed-container-#{@uuid}"> <iframe src="#{@link}" frameborder="0" allowfullscreen></iframe> </div> </div>)
+            %(
+            <style>
+                .pdf-embed-wrap-#{@uuid} {
+                    display: flex;
+                    flex-direction: column;
+                    width: #{@width};
+                    height: #{@height};
+                }
+                .pdf-embed-container-#{@uuid} {
+                    height: 100%;
+                }
+                .pdf-embed-container-#{@uuid} iframe {
+                    width: 100%;
+                    height: 100%;
+                }
+            </style>
+            <div class="pdf-embed-wrap-#{@uuid}">
+                <div class="pdf-embed-container-#{@uuid}">
+                    <iframe src="#{@link}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
         else
-            %Q(<style> .pdf-embed-wrap-#{@uuid} { display:flex; flex-direction: column; width: #{@width}; height: #{@height}; } .pdf-embed-container-#{@uuid} { height: 100%; } .pdf-link-#{@uuid} { background-color: white; text-align: center; border-style: solid; } .pdf-embed-container-#{@uuid} iframe { width: 100%; height: 100%; } </style> <div class="pdf-embed-wrap-#{@uuid}"> <div class="pdf-link-#{@uuid}"> <a href="#{@link}" target="_blank">#{@label}</a> </div> <div class="pdf-embed-container-#{@uuid}"> <iframe src="#{@link}" frameborder="0" allowfullscreen></iframe> </div> </div>)
+            %(
+            <style>
+                .pdf-embed-wrap-#{@uuid} {
+                    display: flex;
+                    flex-direction: column;
+                    width: #{@width};
+                    height: #{@height};
+                }
+                .pdf-embed-container-#{@uuid} {
+                    height: 100%;
+                }
+                .pdf-link-#{@uuid} {
+                    background-color: white;
+                    text-align: center;
+                    border-style: solid;
+                }
+                .pdf-embed-container-#{@uuid} iframe {
+                    width: 100%;
+                    height: 100%;
+                }
+            </style>
+            <div class="pdf-embed-wrap-#{@uuid}">
+                <div class="pdf-link-#{@uuid}">
+                    <a href="#{@link}" target="_blank">#{@label}</a>
+                </div>
+                <div class="pdf-embed-container-#{@uuid}">
+                    <iframe src="#{@link}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            ).gsub(/\n+/, '').gsub(/\s+/, ' ').lstrip.chop.strip
         end
     end
 
